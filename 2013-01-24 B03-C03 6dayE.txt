@@ -1,0 +1,71 @@
+//This macro is meant to count cells (Uses Count Nuclei v2) at a given interval on BD Pathway datasets. Macro reads from the default directory.
+//The macro searches for subfolders (Wells) to open and process and outputs the total cell number from the segmentation.
+//The Summary Files are saved directly to the base directory as text files.
+//Go through and delete initial .bmp files in the individual wells if the following error occurs: "BMP Decoder: Unsupported bits-per-pixel value: 16"
+//Peter Frick, Vanderbilt University
+
+setBatchMode(true);
+dir = getDirectory("Choose a Directory ");     
+list = getFileList(dir);
+print(dir);
+
+Dialog.create("Enter Image Base File");
+        Dialog.addMessage("Enter Text Common to All Imported Images");
+        Dialog.addString("Text:", "DsRed - Confocal - n", 18);
+        Dialog.show();
+        ImageBaseFile = Dialog.getString(); 
+        print(ImageBaseFile);
+
+Dialog.create("Enter images acquired per hour");
+        Dialog.addMessage("Sub-sampling rate to reduce file size");
+        Dialog.addString("Text:", "1", 18);
+        Dialog.show();
+        ImageFreq = Dialog.getString(); 
+        print(ImageFreq);
+
+Dialog.create("Enter starting image");
+        Dialog.addMessage("Define first image");
+        Dialog.addString("Text:", "1", 18);
+        Dialog.show();
+        ImageStartNum = Dialog.getString(); 
+        print(ImageStartNum);
+
+Dialog.create("Enter number of images to import");
+        Dialog.addMessage("Total images images in stack");
+        Dialog.addString("Text:", "1000", 18);
+        Dialog.show();
+        ImageTotalNum = Dialog.getString(); 
+        print(ImageTotalNum);
+
+for (i=15; i<list.length; i++) {
+	//if(endsWith(list[i],"/"))
+	if(startsWith(list[i], "Well")) {
+		//print(list.length);
+		//print(dir + list[i]);
+		list[i] = replace(list[i],"/","\\");
+		print(dir + list[i]);
+		openLocation = dir + list[i];
+		//run("Image Sequence...", "open=openLocation number=1 starting=1 increment=1 scale=100 file=[] or=[] sort");
+		run("Image Sequence...", "open=openLocation number=&ImageTotalNum starting=&ImageStartNum increment=&ImageFreq scale=100 file=&ImageBaseFile or=[] sort");
+			rename("Well");
+			open("D:\\MIN_Well B03.tif");
+			imageCalculator("Subtract create stack", "Well","MIN_Well B03.tif");
+			run("Subtract Background...", "rolling=50 stack");
+			run("Convert to Mask", "calculate");
+			//run("Fill Holes", "stack");
+			run("Watershed", "stack");
+			wait(1000);
+			rename("stack");
+			run("Analyze Particles...", "size=150-4000 circularity=0.20-1.00 show=Outlines clear exclude include summarize stack");
+		wait(5000);
+		close();
+		close();
+		list[i]=replace(list[i],"\\","_");
+		selectWindow("Summary of stack");
+		saveAs("text", dir + "H2B_" + list[i] + "Summary");
+		selectWindow("Summary of stack");
+		run("Close");
+		//run("Close");
+	}
+}
+

@@ -1,0 +1,59 @@
+
+run("Median...", "radius=2 stack");
+run("Subtract Background...", "rolling=50 stack");
+run("Median...", "radius=3 stack");
+setThreshold(144,4095);
+run("Convert to Mask", " ");
+run("Watershed", "stack");
+run("Analyze Particles...", "size=30-750 pixel circularity=0.20-1.00 show=Outlines exclude clear include summarize stack");
+
+basefile = getDirectory("Choose a Directory");
+selectWindow("Summary of WellR02-C02H2Bstack.tif");
+saveAs("Text", basefile + "results" + ".xls"); 
+
+
+//Code to ropen all images within the folder
+basefile = getDirectory("Choose a Directory");
+pre = getFileList(basefile);		//load all files
+list = newArray();
+for (i=0; i<(pre.length);i++)		//get subset that contain files (subdirs)
+{
+	if(endsWith(pre[i],".tif"))		//only subdirectories ends with "/"
+	{
+		list	=	Array.concat(list,basefile+pre[i]);
+	}
+}
+Array.sort(list);
+Array.show(list);
+
+//setBatchMode(true);
+for (i=0; i<(list.length); i++) {
+	CurrentImage = list[i];
+	//Change escape character to work on Mac
+	//Only needed on Macbook Pro!
+	CurrentDay	=	replace(CurrentDay,"\\","/");
+	open(CurrentImage);
+}	
+	
+
+//setBatchMode(true);
+for (i=0; i<(list.length); i++) {
+	CurrentImage = list[i];
+	//Change escape character to work on Mac
+	//Only needed on Macbook Pro!
+	CurrentDay	=	replace(CurrentDay,"\\","/");
+	open(CurrentImage);
+}	
+		
+	
+	
+	
+	
+saveAs("Tiff", basefile + "Well" + WellNumber + "H2Bstack");
+wait(100);
+close();
+//waitForUser("Done") ;
+}
+}
+}
+

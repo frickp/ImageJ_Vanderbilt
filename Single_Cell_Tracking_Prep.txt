@@ -1,0 +1,3 @@
+run("Canvas Size...", "width=1008 height=768 position=Top-Left");
+//run("Subtract Background...", "rolling=50 stack");
+run("8-bit");

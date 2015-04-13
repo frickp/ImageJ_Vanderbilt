@@ -1,0 +1,73 @@
+//H2B
+
+day0 = " F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\PC9 singlecell3\\2012-06-08 PLF PC9 10-day colony (#3) – day0\\1\\";
+day1 = "F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\ PC9 singlecell3\\2012-06-09 PLF PC9 10-day colony (#3) – day1\\1\\”;
+day2 = "F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\ PC9 singlecell3\\2012-06-10 PLF PC9 10-day colony (#3) – day2\\1\\”;
+day3 = "F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\ PC9 singlecell3\\2012-06-11 PLF PC9 10-day colony (#3) – day3\\1\\”;
+day4 = "F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\ PC9 singlecell3\\2012-06-12 PLF PC9 10-day colony (#3) – day4\\1\\”;
+day5 = "F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\ PC9 singlecell3\\2012-06-13 PLF PC9 10-day colony (#3) – day5\\1\\”;
+day6 = "F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\ PC9 singlecell3\\2012-06-14 PLF PC9 10-day colony (#3) – day6\\1\\”;
+day7 = "F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\ PC9 singlecell3\\2012-06-15 PLF PC9 10-day colony (#3) – day7\\1\\”;
+day8 = "F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\ PC9 singlecell3\\2012-06-16 PLF PC9 10-day colony (#3) – day8\\1\\”;
+day9 = "F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\ PC9 singlecell3\\2012-06-17 PLF PC9 10-day colony (#3) – day9\\1\\”;
+day10 = "F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\PC9 singlecell3\\2012-06-18 PLF PC9 10-day colony (#3) - day10\\1\\";
+open("F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\blank.tif");
+run("Image Sequence...", "open=[day10] number=1 starting=23 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=21 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=19 increment=2 scale=100 file=-R05-C04 or=[] sort");
+open("F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\blank.tif");
+run("Image Sequence...", "open=[day10] number=1 starting=25 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=5 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=3 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=17 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=41 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=27 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=7 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=1 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=15 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=39 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=29 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=9 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=11 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=13 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=37 increment=2 scale=100 file=-R05-C04 or=[] sort");
+open("F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\blank.tif");
+run("Image Sequence...", "open=[day10] number=1 starting=31 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=33 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=35 increment=2 scale=100 file=-R05-C04 or=[] sort");
+open("F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\blank.tif");
+run("Images to Stack", "name=Stack title=[] use");
+run("Make Montage...", "columns=5 rows=5 scale=0.25 first=1 last=25 increment=1 border=0 font=12");
+setMinAndMax(0, 4095);
+
+//FUCCI
+//How to save H2B before FUCCI??
+open("F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\blank.tif");
+run("Image Sequence...", "open=[day10] number=1 starting=24 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=22 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=20 increment=2 scale=100 file=-R05-C04 or=[] sort");
+open("F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\blank.tif");
+run("Image Sequence...", "open=[day10] number=1 starting=26 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=6 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=4 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=18 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=42 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=28 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=8 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=2 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=16 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=40 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=30 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=10 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=12 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=14 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=38 increment=2 scale=100 file=-R05-C04 or=[] sort");
+open("F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\blank.tif");
+run("Image Sequence...", "open=[day10] number=1 starting=32 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=34 increment=2 scale=100 file=-R05-C04 or=[] sort");
+run("Image Sequence...", "open=[day10] number=1 starting=36 increment=2 scale=100 file=-R05-C04 or=[] sort");
+open("F:\\CellaVista\\Cell-Nuclei imaging\\PC9 singlecell\\blank.tif");
+run("Images to Stack", "name=Stack title=[] use");
+run("Make Montage...", "columns=5 rows=5 scale=0.25 first=1 last=25 increment=1 border=0 font=12");
+setMinAndMax(0, 4095);
+

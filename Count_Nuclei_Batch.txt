@@ -1,0 +1,75 @@
+//This macro is meant to count cells (Uses Count Nuclei v2) at a given interval on BD Pathway datasets. Macro reads from the default directory.
+//The macro searches for subfolders (Wells) to open and process and outputs the total cell number from the segmentation.
+//The Summary Files are saved directly to the base directory as text files.
+//Go through and delete initial .bmp files in the individual wells if the following error occurs: "BMP Decoder: Unsupported bits-per-pixel value: 16"
+//Peter Frick, Vanderbilt University
+
+setBatchMode(true);
+dir = getDirectory("Choose a Directory ");     
+list = getFileList(dir);
+print(dir);
+
+Dialog.create("Enter Image Base File");
+        Dialog.addMessage("Enter Text Common to All Imported Images");
+        Dialog.addString("Text:", "DsRed - Confocal - n", 18);
+        Dialog.show();
+        ImageBaseFile = Dialog.getString(); 
+        print(ImageBaseFile);
+
+Dialog.create("Enter images acquired per hour");
+        Dialog.addMessage("Sub-sampling rate to reduce file size");
+        Dialog.addString("Text:", "1", 18);
+        Dialog.show();
+        ImageFreq = Dialog.getString(); 
+        print(ImageFreq);
+
+Dialog.create("Enter starting image");
+        Dialog.addMessage("Define first image");
+        Dialog.addString("Text:", "1", 18);
+        Dialog.show();
+        ImageStartNum = Dialog.getString(); 
+        print(ImageStartNum);
+
+Dialog.create("Enter number of images to import");
+        Dialog.addMessage("Total images images in stack");
+        Dialog.addString("Text:", "1000", 18);
+        Dialog.show();
+        ImageTotalNum = Dialog.getString(); 
+        print(ImageTotalNum);
+
+//for (i=47; i<list.length; i++) {
+for (i=58; i<list.length; i++) {
+	if(startsWith(list[i], "Well")) {
+		list[i] = replace(list[i],"/","\\");
+		print(list[i]);
+		openLocation = dir + list[i];
+		run("Image Sequence...", "open=openLocation number=&ImageTotalNum starting=&ImageStartNum increment=&ImageFreq scale=100 file=&ImageBaseFile or=[] sort");
+		rename("H2B");
+		open("J:\\BD Pathway\\MIN_H2B.tif");
+		imageCalculator("Subtract create stack", "H2B","MIN_H2B.tif");
+		selectWindow("H2B");
+		close();
+		selectWindow("Result of H2B");
+		run("Median...", "radius=2 stack");	
+		run("Subtract Background...", "rolling=50 stack");
+		run("Median...", "radius=2 stack");
+			//setThreshold(50, 4095);
+			setThreshold(4, 4095);
+			run("Convert to Mask", " ");
+			run("Watershed", "stack");
+			wait(1000);
+			rename("stack");
+			run("Analyze Particles...", "size=150-4000 circularity=0.20-1.00 show=Outlines clear exclude include summarize stack");
+		wait(2000);
+		close();
+		//close();
+		list[i]=replace(list[i],"\\","_");
+		selectWindow("Summary of stack");
+		//saveAs("text", dir + list[i] + "Summary");
+		saveAs("text", dir + "H2B_"+ list[i] + "Summary");
+		selectWindow("Summary of stack");
+		run("Close");
+		//run("Close");
+	}
+}
+

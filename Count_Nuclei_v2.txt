@@ -1,0 +1,5 @@
+run("Subtract Background...", "rolling=50 stack");
+setThreshold(14, 4000);
+run("Convert to Mask", " ");
+run("Watershed", "stack");
+run("Analyze Particles...", "size=150-4000 circularity=0.20-1.00 show=Outlines clear exclude include summarize stack");

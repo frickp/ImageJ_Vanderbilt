@@ -1,0 +1,13 @@
+macro "CV_Colony_Processing [f12]" {
+run("Make Substack...", "  slices=1-3");
+run("Median...", "radius=2 stack");
+run("Subtract Background...", "rolling=50 stack");
+run("Median...", "radius=3 stack");
+setSlice(3);
+setAutoThreshold("Default dark");
+waitForUser("Apply Threshold");
+run("Convert to Mask", " ");
+run("Fill Holes", "stack");
+run("Watershed", "stack");
+run("Analyze Particles...", "size=30-750 circularity=0.20-1.00 show=Outlines exclude clear include summarize stack");
+}
