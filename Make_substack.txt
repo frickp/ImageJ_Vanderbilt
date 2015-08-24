@@ -1,3 +1,0 @@
-macro "Make_substack [f10]"{
-run("Make Substack...", "  slices=1-11");
-}
